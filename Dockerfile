@@ -14,5 +14,8 @@ COPY . .
 # Cài frontend + build frontend + backend
 RUN npm install && npm run webapp:build && mvn clean package -Pprod -DskipTests
 
+# Khai báo PORT (Render sẽ ghi đè)
+ENV PORT=8080
+
 # Chạy ứng dụng (dùng đúng tên file JAR)
 CMD ["java", "-jar", "target/aolangfarm-0.0.1-SNAPSHOT.jar"]
