@@ -1,22 +1,18 @@
-# Sử dụng JDK chính xác
 FROM eclipse-temurin:17-jdk
 
-# Cài Node.js nếu cần build frontend (Angular)
-RUN apt-get update && apt-get install -y curl git && \
+# Cài Node.js & Maven
+RUN apt-get update && apt-get install -y curl git maven && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs
 
-# Cài Maven
-RUN apt-get install -y maven
-
-# Tạo thư mục app
+# Làm việc trong thư mục app
 WORKDIR /app
 
-# Copy toàn bộ project vào container
+# Copy toàn bộ source vào image
 COPY . .
 
-# Cài đặt frontend + build Angular + backend
+# Cài frontend + build frontend + backend
 RUN npm install && npm run webapp:build && mvn clean package -Pprod -DskipTests
 
-# Chạy file jar
-CMD ["java", "-jar", "target/*.jar"]
+# Chạy ứng dụng (dùng đúng tên file JAR)
+CMD ["java", "-jar", "target/aolangfarm-0.0.1-SNAPSHOT.jar"]
