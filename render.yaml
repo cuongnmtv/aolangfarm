@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: aolangfarm
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DB_URL
+        value: jdbc:postgresql://dpg-d1lnh115pdvs73c6g44g-a.oregon-postgres.render.com:5432/aolangfarm
+      - key: DB_USERNAME
+        value: aolangfarm_user
+      - key: DB_PASSWORD
+        value: A9sICwudbDbTH6JIrMlkTorstOrXG0sJ
